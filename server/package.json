@@ -7,6 +7,10 @@
     "watch": "nodemon index.js",
     "test": "jest"
   },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
