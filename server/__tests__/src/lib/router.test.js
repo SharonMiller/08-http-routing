@@ -21,4 +21,22 @@ describe('Router', () => {
     router.get('/c', () => true);
     expect(Object.keys(router.routes.GET).length).toEqual(3);
   });
+
+  it('should return 404 status for routes that have not been registered', () => {
+    let req = {
+      method: 'GET',
+      url: '/bad/path',
+      body: 'request body',
+    };
+    let res = {
+      write: jest.fn(),
+      end: jest.fn(),
+    };
+    let expected = '404';
+
+    router.route(req, res)
+      .then((req, res) => {
+        expect(res.status).toBe(expected);
+      });
+  });
 });

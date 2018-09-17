@@ -12,7 +12,7 @@ const methods = ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'];
 methods.forEach(method => {
   router.routes[method] = {};
 
-  router[method.toLowerCase()] = function(path, cb) {
+  router[method.toLowerCase()] = function (path, cb) {
     router.routes[method][path] = cb;
   };
 });
@@ -22,10 +22,12 @@ router.route = (req, res) => {
     .then(req => {
       let handler = router.routes[req.method][req.parsed.pathname];
 
-      if(handler){
+      if (handler) {
         return handler(req, res);
-      }else{
-        //send 404
+      } else {
+        res.status = 404;
+        res.write('404: resource not found');
+        res.end();
       }
     })
     .catch(err => {
@@ -35,4 +37,4 @@ router.route = (req, res) => {
       res.write('Request failed parsing', req.parsed.pathname);
       res.end();
     });
-}
+};
