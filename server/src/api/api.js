@@ -2,9 +2,16 @@
 
 const router = require('../lib/router.js');
 
-let basePath = '/api/v1';
+let basePath = '/api/v1/notes';
+let sendJSON = (res, data) => {
+  res.statusCode = 200;
+  res.statusMessage = 'OK';
+  res.setHeader('Content-Type', 'application/json');
+  res.write(JSON.stringify(data));
+  res.end();
+};
 
-router.post(`${basePath}/notes`, (req, res) => {
+router.post(`${basePath}`, (req, res) => {
   // do stuff
   if (req.body === '') {
     res.statusCode = 400;
@@ -13,15 +20,14 @@ router.post(`${basePath}/notes`, (req, res) => {
     res.end();
 
   } else {
-    res.statusCode = 200;
-    res.statusMessage = 'OK';
-    res.write(JSON.stringify(req.body));
-    res.end();
+    sendJSON(res, req.body);
   }
 });
 
-router.get('/', (req, res) => {
+router.get(`${basePath}`, (req, res) => {
   // do stuff
+  let data = { id: req.query.id };
+  sendJSON(res, data);
 });
 
 router.put('/', (req, res) => {

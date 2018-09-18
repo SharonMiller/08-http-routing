@@ -21,18 +21,18 @@ router.route = (req, res) => {
   return parser(req)
     .then(req => {
       let handler = router.routes[req.method][req.parsed.pathname];
-
+      console.log(req.method, req.parsed.pathname);
       if (handler) {
         return handler(req, res);
       } else {
-        res.status = 404;
+        res.statusCode = 404;
         res.write('404: resource not found');
         res.end();
       }
     })
     .catch(err => {
       console.error(err);
-      res.status = 500;
+      res.statusCode = 500;
       res.statusMessage = 'Error while parsing request';
       res.write('Request failed parsing', req.parsed.pathname);
       res.end();
