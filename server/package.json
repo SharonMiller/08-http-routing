@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^5.0.1",
-    "jest": "^22.4.4"
+    "jest": "^22.4.4",
+    "nodemon": "^1.18.4"
   },
   "jest": {
     "verbose": true,
