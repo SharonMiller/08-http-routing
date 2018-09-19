@@ -46,11 +46,30 @@ router.get(`${basePath}`, (req, res) => {
   }
 });
 
-router.put('/', (req, res) => {
+router.put(`${basePath}`, (req, res) => {
   // do stuff
+  if (!req.query.id) {
+    sendError(res, 400, 'Bad Request');
+
+  } else {
+    let data = { id: req.query.id };
+    router.post(`${basePath}`, (req, res) => {
+      sendJSON(res, data);
+    });
+  }
 });
 
 
-router.delete('/', (req, res) => {
+router.delete(`${basePath}`, (req, res) => {
   // do stuff
+  if (typeof (JSON.parse(req.body)) !== 'object') {
+    sendError(res, 404, 'ERROR: request body is not JSON');
+
+  } else if (!req.query.id) {
+    sendError(res, 400, 'Bad Request, unable to delete resource of undefinied ID');
+
+  } else {
+    let data = res;
+    sendJSON(res, data);
+  }
 });
