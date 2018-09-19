@@ -25,7 +25,7 @@ describe('POST /api/v1/notes', () => {
     apiRequest
       .post(basePath)
       .send('')
-      .expect(400, 'bad request', done);
+      .expect(400, 'Bad Request', done);
   });
 });
 
@@ -33,9 +33,9 @@ describe('POST /api/v1/notes', () => {
 *     GET request tests            *
 ************************************/
 describe('GET /api/v1/notes/:id', () => {
-  let path = `${basePath}?id=1`;
 
   it('should respond with json for the corresponding id', () => {
+    let path = `${basePath}?id=1`;
     return apiRequest
       .get(path)
       .set('Accept', 'application/json')
@@ -45,5 +45,12 @@ describe('GET /api/v1/notes/:id', () => {
         console.log(response.body);
         expect(response.body.id).toBe('1');
       });
+  });
+
+  it('should return a 400 response with bad request if no id was provided', () => {
+    return apiRequest
+      .get(basePath)
+      .set('Accept', 'application/json')
+      .expect(400);
   });
 });

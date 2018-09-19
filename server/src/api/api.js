@@ -11,13 +11,23 @@ let sendJSON = (res, data) => {
   res.end();
 };
 
+let sendError = (res, code, msg) => {
+  res.statusCode = code;
+  res.statusMessage = msg;
+  // res.setHeader('Content-Type', 'application/json');
+  res.write(msg);
+  res.end();
+};
+
 router.post(`${basePath}`, (req, res) => {
   // do stuff
   if (req.body === '') {
-    res.statusCode = 400;
-    res.statusMessage = 'Bad Request';
-    res.write('bad request');
-    res.end();
+    // res.statusCode = 400;
+    // res.statusMessage = 'Bad Request';
+    // res.write('bad request');
+    // res.end();
+
+    sendError(res, 400, 'Bad Request');
 
   } else {
     sendJSON(res, req.body);
@@ -26,8 +36,14 @@ router.post(`${basePath}`, (req, res) => {
 
 router.get(`${basePath}`, (req, res) => {
   // do stuff
-  let data = { id: req.query.id };
-  sendJSON(res, data);
+  if (!req.query.id) {
+    sendError(res, 400, 'Bad Request');
+
+  } else {
+    let data = { id: req.query.id };
+    sendJSON(res, data);
+
+  }
 });
 
 router.put('/', (req, res) => {
