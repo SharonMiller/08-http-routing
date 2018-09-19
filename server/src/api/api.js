@@ -1,6 +1,13 @@
 'use strict';
 
 const router = require('../lib/router.js');
+const api = module.exports = {};
+
+router.get('/', (req,res) => {
+//do something here
+});
+
+const router = require('../lib/router.js');
 const notes = require('../models/notes.js');
 const api = module.exports = {};
 
@@ -37,3 +44,4 @@ router.post('/api/v1/notes', (req, res) => {
 // (Prove that you got the JSON from the POST)
 
 //router(get/)callback
+

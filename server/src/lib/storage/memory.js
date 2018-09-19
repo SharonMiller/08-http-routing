@@ -4,6 +4,16 @@ const storage = module.exports = {};
 
 const database = {};
 
+storage.get = id => {
+  return new Promise ((resolve, reject) => {
+    if (!database.id) {
+      reject('ERROR: id not found'); 
+    } else {
+      resolve(database[id]);
+    }
+  });
+}
+
 storage.save = data => {
 
   return Promise((resolve, reject) => {

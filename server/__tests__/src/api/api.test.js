@@ -23,3 +23,21 @@ describe('req response for POST request', () => {
       .expect(400, done);
   });
 });
+
+test('should return matched object to id')
+let id = 3;
+request('http://localhost:3000')
+  .get()
+  .send()
+  .expect();
+
+
+// let method = 'POST';
+    // let path = '/api/v1/notes';
+    // let localRequest = 
+    // let expected = JSON.stringify(postobj);
+    // let req.body = expected; //not literal edit this section
+    // let status = 200;
+    // router.routes[method][path] (req, res)
+    // expected(res.status).toEqual(200);
+    // expected(res.body).toBe(expected);
