@@ -13,26 +13,34 @@ methods.forEach(method => {
   router.routes[method] = {};
 
   router[method.toLowerCase()] = function(path, cb) {
-    router.routes[method][path] = cb;
+    router.routes[method][path] = cb; //this is
   };
 });
-
+//router.route is the entrypoint of our server
 router.route = (req, res) => {
+  console.log('im in router.route');
   return parser(req)
     .then(req => {
       let handler = router.routes[req.method][req.parsed.pathname];
+      console.log('Im after let handler');
+
 
       if(handler){
-        return handler(req, res);
+        console.log('did you make it here in my to my handler?')
+        return handler(req, res);// this is the API endpoint from the test
       }else{
-        //send 404
+        let error = { error: '404 Page not found'};
+        res.statusCode = 404;
+        res.setHeader('Content-Type', 'application/json');
+        res.write(JSON.stringify(error));
+        res.end();
       }
     })
     .catch(err => {
-      console.error(err);
-      res.status = 500;
+      console.error(err, 'im in 500 error');
+      res.statusCode = '500';
       res.statusMessage = 'Error while parsing request';
-      res.write('Request failed parsing', req.parsed.pathname);
+      res.write('Request failed parsing different', req.parsed.pathname);
       res.end();
     });
 }
