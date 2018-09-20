@@ -15,6 +15,13 @@ class Notes {
   //put it where it goes when storage is created
 
   }
+  static get(getid) {
+    return storage.get(getid);
+  }
+
+  static delete(getid, res) {
+    return storage.delete(getid, res);
+  }
 }
 
 

@@ -13,24 +13,22 @@ methods.forEach(method => {
   router.routes[method] = {};
 
   router[method.toLowerCase()] = function(path, cb) {
-    router.routes[method][path] = cb; //this is
+    router.routes[method][path] = cb;
   };
 });
 //router.route is the entrypoint of our server
 router.route = (req, res) => {
-  console.log('im in router.route');
   return parser(req)
     .then(req => {
       let handler = router.routes[req.method][req.parsed.pathname];
-      console.log('Im after let handler');
+
 
 
       if(handler){
-        console.log('did you make it here in my to my handler?')
         return handler(req, res);// this is the API endpoint from the test
       }else{
         let error = { error: '404 Page not found'};
-        res.statusCode = 404;
+        res.statusCode = '404';
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(error));
         res.end();
