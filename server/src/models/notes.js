@@ -6,7 +6,7 @@ const storage = require('../lib/storage/data-store.js');
 class Notes {
   constructor(title, content) {
     this.id = uuid();
-    this.createdOn = new Date();
+    this.createdOn = this.lastUpdated = new Date();
     this.title = title;
     this.content = content;
   }
